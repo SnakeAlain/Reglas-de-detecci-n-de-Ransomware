@@ -1,0 +1,26 @@
+// Ransomware Black Basta
+// Yara
+
+rule Identificación_BlackBasta {
+    strings:
+        $string1 = "E:\\cpp\\calc\\Bin\\Release_x86_v143\\minipath.pdb"
+        $string2 = "%s\\%s\\%s.mui"
+        $string3 = "%s\\%s.mui"
+        $string4 = ".\\%s.mui"
+        $string5 = ".lnk"
+        $string6 = "*.exe;*.com;*.bat;*.lnk;*.pif"
+        $string7 = ".mui"
+        $string8 = "minkernel\\crts\\ucrt\\inc\\corecrt_internal_strtox.h"
+        $string9 = "\\Notepad3.exe"
+        $string10 = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        $string11 = "7!7'7-73797?7E7K7Q7W7]7c7i7o7u7{7"
+        $string12 = "florian.balmer@gmail.com"
+
+    condition:
+        4 of ($string*)   
+}
+
+
+//Splunk 
+
+(index=* <campo_hash>=”* BFDF5E72651B4EC588BD5FC6A9F17E9E0972248146BBACC10478F48D72F29B81*”) AND (index* (“*rizonesoft.com*” OR “*flos-freeware.ch*”))
