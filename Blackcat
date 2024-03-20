@@ -1,0 +1,25 @@
+//Ransomware Blackcat
+//Splunk
+
+index=* sourcetype=* (“F472B4AE02E5956F4F25CCFD6ECFDA4B” OR “BFDF5E72651B4EC588BD5FC6A9F17E9E0972248146BBACC10478F48D72F29B81”)
+Index=”WHITELIST” path=”*\runneradmin*” (.exe OR .dll OR .bat)
+index=* sourcetype=* (“cmd.exe” OR “wmic” OR “powershell”) AND (“*/user*” OR “*\"tokens=*” OR “*/stop *”)  
+
+
+//Yara
+
+rule Identificar_ALPHV{
+    strings:
+$string1 = "net use /user: /persistent:no"
+$string2="127.0.0.1:”
+$string=“uespemosarenegylmodnarodsetybdetuespemosarenegylmodnarodsetybdet"
+$string3 = ".CRT"
+$string4 = "wmic csproduct get UUID"
+$string5 = "cmd.exe /c for /F \"tokens=*\" %1 in ('wevtutil.exe') DO wevtutil.exe cl \"%1\""
+$string6 = "iisreset.exe /stop"
+$string7 = "library/locker/src/core/os/windows/restart_manager.rsRmStartSession="
+        $string8 = "C:\\Users\\runneradmin"
+        $string10 = ">8>D>P>\\>h>t>"
+    condition:
+        4 of them
+}
