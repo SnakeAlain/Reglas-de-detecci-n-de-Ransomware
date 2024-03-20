@@ -1,0 +1,45 @@
+// Ransomware Lockbit
+//Yara 
+rule Lockbit1 {
+    strings:
+        $string1 = "DefWatch"
+        $string2 = "ccEvtMgr"
+        $string3 = "ccSetMgr"
+        $string4 = "SavRoam"
+        $string5 = "sqlserv"
+        $string6 = "sqlagent"
+        $string7 = "sqladhlp"
+        $string8 = "Culserver"
+        $string9 = "RTVscan"
+        $string10 = "sqlbrowser"
+        $string11 = "SQLADHLP"
+        $string12 = "QBIDPService"
+        $string13 = "QuickBoooks.FCS"
+        $string14 = "QBCFMonitorService"
+        $string15 = "sqlwriter"
+        $string16 = "msmdsrv"
+        $string17 = "tomcat6"
+        $string18 = "zhundongfangyu"
+        $string19 = "vmware-usbarbitator64"
+        $string20 = "vmware-converter"
+        $string21 = "dbsrv12"
+        $string22 = "dbeng8"
+        $string23 = "wrapper"
+    condition:
+        any of ($string*) 
+}
+
+rule Lockbit2
+{        strings:
+$string= "/C ping 127.0.0.7”
+$string2 = "Ransom" ascii wide
+$string3= {8B 4D 08 C1 E9 10 0F B6 D1 8B 4D 0C C1 E9 08 0F B6 C9 8B 14 95 [4] 8B 7D FC 33 14 8D [4] 8B CF C1 E9 18 33 14 8D [4] 0F B6 CB 33 14 8D [4] 8B CF 33 10}
+condition:
+      uint16 ( 0 ) == 0x5A4D and ( 2 of them )
+}
+
+// Splunk
+
+index=* sourcetype=* (“*vssadmin*” OR “*delete shadows*“ OR "*wmic*” “*shadowcopy” OR "wmic SHADOWCOPY /nointeractive" OR "bcdedit /set {default} bootstatuspolicy ignoreallfailures" OR "bcdedit /set {default} 
+recoveryenabled no" OR "wbadmin delete catalog -quiet" OR “wbadmin” OR "wbadmin DELETE SYSTEMSTATEBACKUP" OR "wbadmin DELETE SYSTEMSTATEBACKUP -deleteOldes") AND 
+(“FE025D0F649AB10B399EFD628FA8DF3E” OR “9B9309B58CB37542A8F83D6123E88D1F38AABFCC” OR “7764E7022DCAC1B5779D1F96FC05AF5C1FEE394AAFF8A3A7E9A881E1A1B163A3”)
