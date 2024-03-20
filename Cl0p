@@ -1,0 +1,53 @@
+// Ransomware Cl0p
+// Yara
+
+
+rule Identificación_Clop {
+    strings:
+
+        $string1 = "%s\\!!!_READ_!!!.RTF" ascii wide
+        $string2 = "!!!_READ_!!!.RTF" ascii wide
+        $string3 = "WrUiuFHb.exe" ascii wide
+        $string4 = "temp.ocx" ascii wide
+  $string5 = “.ocx” ascii wide
+  $string6 = “.RTF” ascii wide
+        $string7 = “4fKlUygdsrdjwU,zfliUu,zKfqnegfhdag,fHSnnusk,DzbKDsSHH” ascii wide
+                $string8 = “BEGIN PUBLIC KEY” ascii wide
+        $string9 = “END PUBLIC KEY” ascii wide
+        $string10_mutex = “Pfieq2ofQAkhr729JHAIJfioq” 
+
+    condition:
+        any of them
+}
+
+
+
+
+rule Identificación_Clop2
+{
+ 
+ strings:
+ 	$string1 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCpEnzYAtPzcmKnw41bLkkkDDmZ1YB4weOpyx0lY8gVl0gvveTMKhmhYNzjc5uQfXH3fbGmbbdELle/u7YsdXkuNHRQThnFfs+q7SIw1nibfYa4c9KA4ftfr69dZTt4T/RzRzsISVNU1Q6me59k9bBqxgiyDRjJhl79BT65Ggn+uQIDAQAB" ascii wide
+               $string2 = "ClopReadMe.txt" ascii wide
+               $string3 = "CIopReadMe.txt" ascii wide
+               $string4 = "CLOP#666" ascii wide
+               $string5 = "MoneyP#666" ascii wide
+               $string6 = "^_-HappyLife^_-" ascii wide
+               $string7 = "Clop^_" ascii wide
+               $string8 = "CIop^_" ascii wide
+               $string9 = "CIIp^_-" ascii wide
+               $string10 = "Cllp^_-" ascii wide
+                $string11 = "Clop2^_" ascii wide
+                $string12 = "Ciop^_" ascii wide
+                $string13= "/C for /F \"tokens=*\" %1 in ('wevtutil.exe el') DO wevtutil.exe cl \"%1" ascii wide
+                $string14 ="Clopfdwsjkjr23LKhuifdhwui73826ygGKUJFHGdwsieflkdsj324765tZPKQWLjwNVBFHewiuhryui32JKG" ascii wide
+
+  condition:
+   7 of ($string*)   
+}
+
+//Splunk
+
+index=* <campo_hash>=”* 7964F8A7405C43AD5AFD79D1EBB6C8D299A9ADAA48B338405C8A6E2E3ACA6937 *”
+("MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCgM3tVU3NLe3jGdCsC1KvmbV/+ bBsQPxy/08huxVdm6WCgtNnhovw7FZgUQspt7Hf7P4ghITURWeJWrZK1uMQJGP9a FMr7Y9f4oKivW+AFA1ncGiPupp0d3J+dwX8JsFbMKP7+2ZcWKP5G8yH8czdMMUwW WklV8CPLTyNNd7x3QwIDAQAB")
+
